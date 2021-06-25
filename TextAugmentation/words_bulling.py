@@ -3,6 +3,7 @@ from random import choice
 from random import randrange
 from random import randint
 from typing import List
+from typing import Dict
 
 
 class Shufflers:
@@ -27,11 +28,11 @@ class Shufflers:
         return "".join(sample(split_word, k=len(split_word)))
 
 
-class WordsMultiplyer:
+class WordsMultiplyerDropper:
     def drop_random_words_from_sequence(self, sequence: str, split_by=" ") -> str:
         """
         Input:
-        sequence -> str object like ''Мама помыла раму'
+        sequence -> str object like Мама помыла раму'
         Output
         sequence -> str object like 'Мама помыла'
         """
@@ -51,15 +52,48 @@ class WordsMultiplyer:
     ) -> str:
         """
         Input:
-        sequence -> str object like ''Мама помыла раму'
+        sequence -> str object like 'Мама помыла раму'
         Output
-        sequence -> str object like 'Мама Мама Мама  помыла  раму раму '
+        sequence -> str object like 'Мама Мама Мама помыла раму раму '
         """
         return " ".join(
-            str(str(word + " ") * randint(1, max_multiplying)).replace("  ", " ")
+            str(str(word + " ") * randint(2, max_multiplying)).replace("  ", " ")
             if choice((True, False))
             else word
             for word in sequence.split(split_by)
+        )
+
+    def drop_random_letters_from_word(self, word: str) -> str:
+        """
+        Input:
+        word -> str object like 'колбаса'
+        Output
+        word -> str object like 'коласа'
+        """
+        split_word: List[str] = [letter for letter in word]
+        indexes_to_drop: Dict[int] = {
+            randint(1, len(split_word)) for _ in range(randint(1, len(split_word)))
+        }
+        return "".join(
+            letter
+            for idx, letter in enumerate(split_word)
+            if idx not in indexes_to_drop
+        )
+
+    def multiply_random_letters_in_word(
+        self, word: str, max_times_multiplying=3
+    ) -> str:
+        """
+        Input:
+        word -> str object like 'колбаса'
+        Output
+        word -> str object like 'кооолббаасаа'
+        """
+        return "".join(
+            letter * randint(1, max_times_multiplying)
+            if choice((True, False))
+            else letter
+            for letter in word
         )
 
 
