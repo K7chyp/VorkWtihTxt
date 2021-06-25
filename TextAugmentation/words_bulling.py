@@ -1,12 +1,11 @@
 from random import sample
 from random import choice
+from random import randrange
+from random import randint
 from typing import List
 
 
 class Shufflers:
-    def __init__(self):
-        pass
-
     def sequence_shuffle(self, sequence: str, split_by=" ") -> str:
         """
         Input:
@@ -37,4 +36,25 @@ class Shufflers:
         """
         return "".join(
             letter.upper() if choice((True, False)) else letter for letter in word
+        )
+
+
+class WordsMultiplyer:
+    def drop_random_words_from_sequence(self, sequence: str, split_by=" ") -> str:
+        """
+        Input:
+        sequence -> str object like ''Мама помыла раму'
+        Output
+        sequence -> str object like 'Мама помыла'
+        """
+        split_sequence: List[str] = sequence.split(split_by)
+        count_indexes_to_delete: int = randint(a=0, b=len(split_sequence))
+        return " ".join(
+            word
+            for idx, word in enumerate(split_sequence)
+            if idx
+            not in {
+                randint(0, len(split_sequence))
+                for _ in range(count_indexes_to_delete)
+            }
         )
