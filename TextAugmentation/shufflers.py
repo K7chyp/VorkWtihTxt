@@ -1,4 +1,5 @@
 from random import sample
+from random import choice
 from typing import List
 
 
@@ -19,9 +20,21 @@ class Shufflers:
     def letters_shuffler(self, word: str) -> str:
         """
         Input:
-        word -> str object like 'колбоса'
+        word -> str object like 'колбаса'
         Output
         word -> str object like 'кобаосл'
         """
         split_word: List[str] = [letter for letter in word]
         return "".join(sample(split_word, k=len(split_word)))
+
+    def random_words_upper(self, word: str) -> str:
+        """
+        Idk how but maybe you'll be using it
+        Input:
+        word -> str object like 'колбаса'
+        Output
+        word -> str object like 'КоЛбаСА'
+        """
+        return "".join(
+            letter.upper() if choice((True, False)) else letter for letter in word
+        )
