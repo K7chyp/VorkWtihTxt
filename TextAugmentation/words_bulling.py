@@ -54,7 +54,22 @@ class WordsMultiplyer:
             for idx, word in enumerate(split_sequence)
             if idx
             not in {
-                randint(0, len(split_sequence))
-                for _ in range(count_indexes_to_delete)
+                randint(0, len(split_sequence)) for _ in range(count_indexes_to_delete)
             }
+        )
+
+    def multiply_random_words(
+        self, sequence: str, max_multiplying=3, split_by=" "
+    ) -> str:
+        """
+        Input:
+        sequence -> str object like ''Мама помыла раму'
+        Output
+        sequence -> str object like 'Мама Мама Мама  помыла  раму раму '
+        """
+        return " ".join(
+            str(str(word + " ") * randint(1, max_multiplying)).replace("  ", " ")
+            if choice((True, False))
+            else word
+            for word in sequence.split(split_by)
         )
