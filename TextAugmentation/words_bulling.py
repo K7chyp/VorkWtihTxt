@@ -29,6 +29,10 @@ class Shufflers:
 
 
 class WordsMultiplyerDropper:
+
+    def __init__(self): 
+      self.randomizer: List[bool] = [True] * randint(1, 30) + [False] * randint(1, 30)
+
     def drop_random_words_from_sequence(self, sequence: str, split_by=" ") -> str:
         """
         Input:
@@ -58,7 +62,7 @@ class WordsMultiplyerDropper:
         """
         return " ".join(
             str(str(word + " ") * randint(2, max_multiplying)).replace("  ", " ")
-            if choice((True, False))
+            if choice(self.randomizer)
             else word
             for word in sequence.split(split_by)
         )
@@ -79,22 +83,15 @@ class WordsMultiplyerDropper:
             for idx, letter in enumerate(split_word)
             if idx not in indexes_to_drop
         )
-
-    def multiply_random_letters_in_word(
-        self, word: str, max_times_multiplying=3
-    ) -> str:
+    
+    def multiply_random_letters_in_word(self, word: str, max_times_multiplying = 3) -> str:
         """
         Input:
         word -> str object like 'колбаса'
         Output
         word -> str object like 'кооолббаасаа'
         """
-        return "".join(
-            letter * randint(1, max_times_multiplying)
-            if choice((True, False))
-            else letter
-            for letter in word
-        )
+        return ''.join(letter * randint(1,max_times_multiplying) if choice(self.randomizer) else letter for letter in word)
 
 
 class WordsModification:
@@ -107,5 +104,5 @@ class WordsModification:
         word -> str object like 'КоЛбаСА'
         """
         return "".join(
-            letter.upper() if choice((True, False)) else letter for letter in word
+            letter.upper() if choice(self.randomizer) else letter for letter in word
         )
