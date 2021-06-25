@@ -26,18 +26,6 @@ class Shufflers:
         split_word: List[str] = [letter for letter in word]
         return "".join(sample(split_word, k=len(split_word)))
 
-    def random_words_upper(self, word: str) -> str:
-        """
-        Idk how but maybe you'll be using it
-        Input:
-        word -> str object like 'колбаса'
-        Output
-        word -> str object like 'КоЛбаСА'
-        """
-        return "".join(
-            letter.upper() if choice((True, False)) else letter for letter in word
-        )
-
 
 class WordsMultiplyer:
     def drop_random_words_from_sequence(self, sequence: str, split_by=" ") -> str:
@@ -72,4 +60,18 @@ class WordsMultiplyer:
             if choice((True, False))
             else word
             for word in sequence.split(split_by)
+        )
+
+
+class WordsModification:
+    def random_words_upper(self, word: str) -> str:
+        """
+        Idk how but maybe you'll be using it
+        Input:
+        word -> str object like 'колбаса'
+        Output
+        word -> str object like 'КоЛбаСА'
+        """
+        return "".join(
+            letter.upper() if choice((True, False)) else letter for letter in word
         )
